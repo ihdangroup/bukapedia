@@ -1,11 +1,14 @@
 import React from "react";
 
-const NewProduct = ({ product }) => {
+const NewProduct = ({ product, loading }) => {
   return (
     <>
-      {product.map((item) => {
+      {product.map((item, index) => {
         return (
-          <div className="w-full bg-white p-6">
+          <div
+            key={index}
+            className={`w-full bg-white ${loading ? "animate-pulse" : ""} p-6`}
+          >
             <div className="flex items-center">
               <div className="w-1/2 flex justify-center h-[300px]">
                 <img

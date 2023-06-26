@@ -1,6 +1,6 @@
 import Raact, { useState } from "react";
 
-const Products = ({ product, addToCart }) => {
+const Products = ({ product, addToCart, loading }) => {
   const [modal, setModal] = useState(false);
   return (
     <div
@@ -13,8 +13,12 @@ const Products = ({ product, addToCart }) => {
       <div
         className={
           modal
-            ? "my-2 w-[70%] text-center text-sm p-4 rounded bg-white"
-            : "my-2 w-full text-center text-sm p-4 rounded bg-white"
+            ? `my-2 ${
+                loading ? "animate-pulse" : ""
+              } w-[70%] text-center text-sm p-4 rounded bg-white`
+            : `my-2 ${
+                loading ? "animate-pulse" : ""
+              } w-full text-center text-sm p-4 rounded bg-white`
         }
         onClick={() => setModal(!modal)}
       >

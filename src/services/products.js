@@ -11,7 +11,7 @@ const products = createSlice({
   initialState: {
     products: [],
     cart: [],
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {
@@ -28,6 +28,7 @@ const products = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
+      state.loading = false;
       state.products = action.payload;
     });
   },

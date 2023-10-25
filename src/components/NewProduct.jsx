@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewProduct = ({ product, loading }) => {
+const NewProduct = ({ product, loading, addToCart }) => {
   return (
     <>
       {product.map((item, index) => {
@@ -21,7 +21,10 @@ const NewProduct = ({ product, loading }) => {
                 <h3 className="text-xl font-bold">{item.title}</h3>
                 <p className="text-md my-2">{item.description}</p>
                 <p className="font-bold">$ {item.price}</p>
-                <button className="mt-2 text-white text-sm w-full rounded py-2 bg-slate-800">
+                <button
+                  className="mt-2 text-white text-sm w-full rounded py-2 bg-slate-800"
+                  onClick={() => addToCart(JSON.stringify(item))}
+                >
                   Add To Cart
                 </button>
               </div>

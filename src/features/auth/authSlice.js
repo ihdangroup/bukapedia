@@ -55,10 +55,10 @@ const authSlice = createSlice({
     },
     login: (state, action) => {
       const { email, password } = action.payload;
-      if (email !== "ihdan@gmail.com" && password !== 123456) {
+      if (email !== "user@gmail.com" && password !== "user123") {
         state.error = "invalid email or password acount";
       } else {
-        state.isLogin = true;
+        state.isLogin = false;
         state.user = { email, password };
         localStorage.setItem("user", JSON.stringify({ email, password }));
       }
@@ -78,6 +78,19 @@ const authSlice = createSlice({
         state.isLogin = false;
       }
     },
+    buy: (state) => {
+      state.carts = [];
+      toast("Terima Kasih telah berbelanja disini", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.fulfilled, (state, action) => {
@@ -86,6 +99,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { addToCart, login, showLoginPage, getUser, logout } =
+export const { buy, addToCart, login, showLoginPage, getUser, logout } =
   authSlice.actions;
 export default authSlice.reducer;

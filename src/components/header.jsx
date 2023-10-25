@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, showLoginPage } from "../features/auth/authSlice";
 
-const Header = ({ handleOpen, cart }) => {
+const Header = ({ handleOpen, cart, isOpen }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const showLogin = () => {
@@ -15,6 +15,11 @@ const Header = ({ handleOpen, cart }) => {
       </div>
       {user ? (
         <div className="flex items-center">
+          {isOpen ? (
+            <div className="mr-2" onClick={handleOpen}>
+              Home
+            </div>
+          ) : null}
           <div className="cart cursor-pointer" onClick={handleOpen}>
             🛒
             {cart.length}

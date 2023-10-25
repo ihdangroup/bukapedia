@@ -9,7 +9,12 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { LoginPage } from "./Cek";
-import { addToCart, getProducts, getUser } from "./features/auth/authSlice";
+import {
+  addToCart,
+  getProducts,
+  getUser,
+  buy,
+} from "./features/auth/authSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,38 +39,56 @@ function App() {
       <div className="w-full">
         {!isLogin ? (
           <>
-            <Header handleOpen={handleOpen} cart={cartss} />
+            <Header handleOpen={handleOpen} isOpen={isOpen} cart={cartss} />
             {isOpen ? (
-              <div className="p-3">
-                <table className="border text-center w-full">
-                  <thead>
-                    <tr className="w-full flex bg-slate-400 p-3 flex-wrap">
-                      <th className="w-[40%]">Product</th>
-                      <th className="w-[20%]">Price</th>
-                      <th className="w-[20%]">Quantity</th>
-                      <th className="w-[20%]">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cartss.map((cart, index) => (
-                      <tr
-                        className={`w-full px-3 py-4 flex flex-wrap ${
-                          index % 2 === 0 ? "bg-blue-300" : ""
-                        }`}
-                        key={cart.id}
-                      >
-                        <td className="w-[40%] font-bold">{cart.title}</td>
-                        <td className="w-[20%]">$ {cart.price}</td>
-                        <td className="w-[20%]">{cart.qty}</td>
-                        <td className="w-[20%]">$ {cart.newTotal}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="flex mt-6 w-full font-bold">
-                  <h4>Total Harga:</h4>
-                  <div className="ml-4">$ {total}</div>
-                </div>
+              <div className="p-3 m-4 text-sm lg:text-base rounded border p-2 shadow">
+                {cartss.length > 0 ? (
+                  <div>
+                    <table className="text-center w-full bg-white">
+                      <thead>
+                        <tr className=" w-full flex rounded bg-gray-300 mb-2 p-3 flex-wrap">
+                          <th className="w-[40%]">Product</th>
+                          <th className="w-[20%]">Price</th>
+                          <th className="w-[20%]">Quantity</th>
+                          <th className="w-[20%]">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cartss.map((cart, index) => (
+                          <tr
+                            className={`w-full px-3 py-4 flex flex-wrap rounded my-2 shadow ${
+                              index % 2 !== 0 ? "bg-gray-300" : ""
+                            }`}
+                            key={cart.id}
+                          >
+                            <td className="w-[40%] font-bold line-clamp-3">
+                              {cart.title}
+                            </td>
+                            <td className="w-[20%]">$ {cart.price}</td>
+                            <td className="w-[20%]">{cart.qty}</td>
+                            <td className="w-[20%]">$ {cart.newTotal}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <div className="flex mt-6 w-full border shadow-md  p-2 rounded font-bold">
+                      <h4>Total Harga:</h4>
+                      <div className="ml-4">$ {total}</div>
+                    </div>
+                    <button
+                      className="w-full text-white bg-black border rounded p-2 my-2 text-white"
+                      onClick={() => dispatch(buy())}
+                    >
+                      Bayar Sekarang
+                    </button>
+                  </div>
+                ) : (
+                  <span className="text-center">
+                    Belum ada produk dikeranjang
+                  </span>
+                )}
+
+                <ToastContainer />
               </div>
             ) : (
               <div
@@ -87,7 +110,11 @@ function App() {
                     </div>
                   </>
                 ) : null}
-                <NewProduct product={newProduct} loading={loading} />
+                <NewProduct
+                  product={newProduct}
+                  loading={loading}
+                  addToCart={masukKeranjang}
+                />
                 {products
                   ? products.map((product, index) => {
                       return (

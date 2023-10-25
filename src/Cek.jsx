@@ -7,6 +7,7 @@ export const LoginPage = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.auth);
   const handleChange = (e) => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
@@ -20,6 +21,11 @@ export const LoginPage = () => {
         <h1 className="font-semibold text-2xl text-center my-4">
           Login Bukapedia
         </h1>
+        {error ? (
+          <div className="bg-red-600 w-full text-sm p-2 rounded text-white my-2">
+            {error}
+          </div>
+        ) : null}
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <input
             className="bg-[#eaeaea] rounded w-full py-1 border px-2"
@@ -27,6 +33,7 @@ export const LoginPage = () => {
             placeholder="input your email acount"
             name="email"
             onChange={handleChange}
+            required
           />
           <input
             className="bg-[#eaeaea] rounded w-full py-1 border px-2 my-4"
@@ -34,6 +41,7 @@ export const LoginPage = () => {
             placeholder="input your password acount"
             name="password"
             onChange={handleChange}
+            required
           />
           <button
             className="bg-black rounded w-full text-white py-2"
@@ -42,6 +50,11 @@ export const LoginPage = () => {
             Login
           </button>
         </form>
+        <div className="bg-[#eaeaea] my-3 p-2 rounded text-sm">
+          <h6 className="font-semibold">Demo User</h6>
+          <p>email: user@gmail.com</p>
+          <p>password: user123</p>
+        </div>
         <div
           className="py-3 text-sm text-blue-500"
           onClick={() => dispatch(showLoginPage())}

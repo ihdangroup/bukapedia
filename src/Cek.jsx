@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, showLoginPage } from "./features/auth/authSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "./features/auth/authSlice";
 export const LoginPage = () => {
   const [loginInfo, setLoginInfo] = React.useState({
     email: "",
     password: "",
   });
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
+  const { error, user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   };
@@ -15,6 +17,9 @@ export const LoginPage = () => {
     e.preventDefault();
     dispatch(login(loginInfo));
   };
+  if (user) {
+    navigate("/");
+  }
   return (
     <div className="w-full h-[100vh] items-center justify-center flex">
       <div className="w-[70%] lg:w-[30%] p-6 rounded border">
@@ -55,12 +60,9 @@ export const LoginPage = () => {
           <p>email: user@gmail.com</p>
           <p>password: user123</p>
         </div>
-        <div
-          className="py-3 text-sm text-blue-500"
-          onClick={() => dispatch(showLoginPage())}
-        >
+        <Link className="py-3 text-sm text-blue-500" to="/">
           back to home
-        </div>
+        </Link>
       </div>
     </div>
   );

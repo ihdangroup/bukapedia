@@ -1,29 +1,25 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, showLoginPage } from "../features/auth/authSlice";
+import { Link } from "react-router-dom";
+import { logout } from "../features/auth/authSlice";
 
-const Header = ({ handleOpen, cart, isOpen }) => {
+const Header = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const showLogin = () => {
-    dispatch(showLoginPage());
-  };
+  const { user, carts } = useSelector((state) => state.auth);
+  const cartss = carts.length > 0 ? JSON.parse(carts) : carts;
   return (
     <div className="w-full p-6 flex justify-between bg-slate-800 text-white">
       <div>
-        <div className="text-2xl">Bukapedia</div>
+        <Link to="/" className="text-2xl">
+          Bukapedia
+        </Link>
       </div>
       {user ? (
         <div className="flex items-center">
-          {isOpen ? (
-            <div className="mr-2" onClick={handleOpen}>
-              Home
-            </div>
-          ) : null}
-          <div className="cart cursor-pointer" onClick={handleOpen}>
+          <Link to="/cart" className="cart cursor-pointer">
             🛒
-            {cart.length}
-          </div>
+            {cartss?.length}
+          </Link>
           <button
             onClick={() => dispatch(logout())}
             className="ml-3 rounded p-2 border text-sm"
@@ -32,9 +28,9 @@ const Header = ({ handleOpen, cart, isOpen }) => {
           </button>
         </div>
       ) : (
-        <button className="text-sm p-2 rounded border" onClick={showLogin}>
+        <Link className="text-sm p-2 rounded border" to="/login">
           Login
-        </button>
+        </Link>
       )}
     </div>
   );

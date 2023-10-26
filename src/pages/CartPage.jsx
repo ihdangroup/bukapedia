@@ -55,7 +55,7 @@ const CartPage = () => {
             </button>
           </div>
         ) : (
-          <span className="text-center">Belum ada produk dikeranjang</span>
+          <span className="text-center">Belum ada item dikeranjang</span>
         )}
       </div>
       <ToastContainer />

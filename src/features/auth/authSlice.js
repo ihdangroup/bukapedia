@@ -14,6 +14,7 @@ export const getProducts = createAsyncThunk("getProducts", async (arg) => {
   const result = await fetch("https://fakestoreapi.com/products");
   return result.json();
 });
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -48,6 +49,33 @@ const authSlice = createSlice({
         progress: undefined,
         theme: "dark",
       });
+    },
+    editQuantity: (state, action) => {
+      const carts =
+        state.carts.length > 0 ? JSON.parse(state.carts) : state.carts;
+      let payload = JSON.parse(action.payload);
+      const { cart, index, operator } = payload;
+      let oldItem = carts.filter((item) => item.id !== cart.id);
+      let newItem = carts.filter((item) => item.id === cart.id);
+      let newQty;
+      let newTotal;
+      if (operator === "plus") {
+        newQty = newItem[0].qty + 1;
+        newTotal = newItem[0].newTotal + newItem[0].price;
+      } else {
+        if (newItem[0].qty == 1) {
+          return;
+        } else {
+          newQty = newItem[0].qty - 1;
+          newTotal = newItem[0].newTotal - newItem[0].price;
+        }
+      }
+
+      newItem.length
+        ? (newItem[0] = { ...cart, qty: newQty, newTotal })
+        : (newItem = [{ ...cart, qty: newQty, newTotal }]);
+      oldItem.splice(index, 0, newItem[0]);
+      state.carts = JSON.stringify(oldItem);
     },
     login: (state, action) => {
       const { email, password } = action.payload;
@@ -90,5 +118,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { buy, addToCart, login, getUser, logout } = authSlice.actions;
+export const { buy, addToCart, login, getUser, editQuantity, logout } =
+  authSlice.actions;
 export default authSlice.reducer;

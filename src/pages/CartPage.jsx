@@ -2,15 +2,24 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { Layout } from "../components";
-import { buy } from "../features/auth/authSlice";
+import { buy, editQuantity } from "../features/auth/authSlice";
 
 const CartPage = () => {
   const { carts } = useSelector((state) => state.auth);
   const cartss = carts.length > 0 ? JSON.parse(carts) : carts;
   const dispatch = useDispatch();
+  const calculate = (cart, index, operator) => {
+    const item = {
+      cart,
+      index,
+      operator,
+    };
+    dispatch(editQuantity(JSON.stringify(item)));
+  };
   const total = cartss?.reduce((cart, num) => {
     return cart + num.newTotal;
   }, 0);
+  console.log(cartss);
   return (
     <Layout>
       <div className="p-3 m-4 text-sm lg:text-base rounded border p-2 shadow">
@@ -37,7 +46,21 @@ const CartPage = () => {
                       {cart.title}
                     </td>
                     <td className="w-[20%]">$ {cart.price}</td>
-                    <td className="w-[20%]">{cart.qty}</td>
+                    <td className="w-[20%]">
+                      <button
+                        className="border p-2"
+                        onClick={() => calculate(cart, index, "min")}
+                      >
+                        -
+                      </button>
+                      {cart.qty}
+                      <button
+                        className="border p-2"
+                        onClick={() => calculate(cart, index, "plus")}
+                      >
+                        +
+                      </button>
+                    </td>
                     <td className="w-[20%]">$ {cart.newTotal}</td>
                   </tr>
                 ))}

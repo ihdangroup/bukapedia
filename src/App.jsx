@@ -25,7 +25,16 @@ function App() {
             } bg-gray-200 py-4 flex flex-wrap justify-between px-1 bg-gray-200 lg:p-6`}
           >
             {loading ? (
-              <Skeleton />
+              <div className="w-full flex flex-wrap justify-between">
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+                <Skeleton />
+              </div>
             ) : (
               products?.map((product) => (
                 <Products

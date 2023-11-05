@@ -2,10 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { Layout } from "../components";
-import { buy, editQuantity } from "../features/auth/authSlice";
+import { buy, editQuantity } from "../features/products";
 
 const CartPage = () => {
-  const { carts } = useSelector((state) => state.auth);
+  const { carts } = useSelector((state) => state.productSlice);
   const cartss = carts.length > 0 ? JSON.parse(carts) : carts;
   const dispatch = useDispatch();
   const calculate = (cart, index, operator) => {

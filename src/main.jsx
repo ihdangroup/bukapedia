@@ -7,12 +7,14 @@ import store from "./app/index.js";
 import { LoginPage } from "./Cek.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import ProductDetil from "./pages/ProductDetil.jsx";
+import ProductsPage from "./pages/productsPage.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/product/:id", element: <ProductDetil /> },
   { path: "/cart", element: <CartPage /> },
   { path: "/login", element: <LoginPage /> },
+  { path: "/products/:params", element: <ProductsPage /> },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

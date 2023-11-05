@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, redirect, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Layout } from "../components";
-import { addToCart } from "../features/auth/authSlice";
+import { addToCart } from "../features/products";
 const ProductDetil = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { products, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.authSlice);
+  const { products } = useSelector((state) => state.productSlice);
   const navigate = useNavigate();
   const product = products?.filter((product) => product.id == id);
   const masukKeranjang = (product) => {

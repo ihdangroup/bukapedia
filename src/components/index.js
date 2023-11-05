@@ -1,6 +1,7 @@
 import Layout from "./Layout";
 import Category from "./Category";
-import Header from "./header";
-import Products from "./products";
+import Navbar from "./Navbar";
+import ProductItem from "./ProductItem";
 import Skeleton from "./Skeleton";
-export { Layout, Category, Header, Products, Skeleton };
+import ProductsWraper from "./ProductsWraper";
+export { Layout, Category, Navbar, ProductItem, Skeleton, ProductsWraper };

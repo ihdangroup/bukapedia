@@ -1,22 +1,20 @@
-import * as React from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-const user = localStorage.getItem("user");
 const initialState = {
-  user: user ? user : null,
   carts: [],
   products: [],
   loading: true,
-  error: null,
 };
-export const getProducts = createAsyncThunk("getProducts", async (arg) => {
-  const result = await fetch("https://fakestoreapi.com/products");
+export const getProducts = createAsyncThunk("getProducts", async (params) => {
+  const result =
+    params === "all"
+      ? await fetch(`https://fakestoreapi.com/products`)
+      : await fetch(`https://fakestoreapi.com/products${params}`);
   return result.json();
 });
 
-const authSlice = createSlice({
-  name: "auth",
+const productSlice = createSlice({
+  name: "productSlice",
   initialState,
   reducers: {
     addToCart: (state, action) => {
@@ -77,26 +75,6 @@ const authSlice = createSlice({
       oldItem.splice(index, 0, newItem[0]);
       state.carts = JSON.stringify(oldItem);
     },
-    login: (state, action) => {
-      const { email, password } = action.payload;
-      if (email !== "user@gmail.com" && password !== "user123") {
-        state.error = "invalid email or password acount";
-        state.user = null;
-      } else {
-        state.user = { email, password };
-        localStorage.setItem("user", JSON.stringify({ email, password }));
-      }
-    },
-    logout: (state) => {
-      localStorage.removeItem("user");
-      state.user = null;
-    },
-    getUser: (state) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        state.user = user;
-      }
-    },
     buy: (state) => {
       state.carts = [];
       toast("Terima Kasih telah berbelanja disini", {
@@ -118,6 +96,5 @@ const authSlice = createSlice({
     });
   },
 });
-export const { buy, addToCart, login, getUser, editQuantity, logout } =
-  authSlice.actions;
-export default authSlice.reducer;
+export const { buy, addToCart, editQuantity } = productSlice.actions;
+export default productSlice.reducer;

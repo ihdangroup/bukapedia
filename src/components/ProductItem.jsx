@@ -1,16 +1,16 @@
 import Raact, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Products = ({ product, addToCart }) => {
+const ProductItem = ({ product }) => {
   return (
     <>
       <Link
         to={`/product/${product.id}`}
-        className={`my-2 w-[49%] flex flex-col justify-between lg:w-[24%] text-sm p-4 rounded bg-white`}
+        className={`my-2 w-[49%] border flex flex-col justify-between lg:w-[24%] text-sm p-4 rounded bg-white`}
       >
         <div className="w-full">
           <div className="p-4 w-full h-[150px] lg:h-[250px] mx-auto">
-            <img src={product.image} className="w-full h-full" />
+            <img src={product.image} className="w-full h-full object-cover" />
           </div>
           <div className="mb-4">
             <h3 className="text-base line-clamp-2 lg:text-lg  text-slate-700 line-clamp-3 mb-2">
@@ -51,4 +51,4 @@ const Products = ({ product, addToCart }) => {
   );
 };
 
-export default Products;
+export default ProductItem;

@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../features/auth/authSlice";
+import { logout } from "../features/auth";
 
-const Header = () => {
+const Navbar = () => {
   const dispatch = useDispatch();
-  const { user, carts } = useSelector((state) => state.auth);
-  const cartss = carts.length > 0 ? JSON.parse(carts) : carts;
+  const { user } = useSelector((state) => state.authSlice);
+  const { carts } = useSelector((state) => state.productSlice);
+  const cartss = carts?.length > 0 ? JSON.parse(carts) : carts;
   return (
     <div className="w-full p-6 flex justify-between bg-slate-800 text-white">
       <div>
@@ -36,4 +37,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;

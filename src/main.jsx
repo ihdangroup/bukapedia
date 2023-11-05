@@ -7,7 +7,7 @@ import store from "./app/index.js";
 import { LoginPage } from "./Cek.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import ProductDetil from "./pages/ProductDetil.jsx";
-import ProductsPage from "./pages/productsPage.jsx";
+import ProductsPage from "./pages/ProductsPage.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },

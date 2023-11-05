@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Category, ProductsWraper } from "../components";
+import { Category, Header, ProductsWraper } from "../components";
 import { getUser } from "../features/auth";
 import { addToCart, getProducts } from "../features/products";
 
@@ -13,11 +13,17 @@ const Home = () => {
   }, []);
   return (
     <div>
+      <Header />
       <Category />
       <ProductsWraper />
-      <Link to="/products/all" className="bg-slate-800 rounded p-4 text-white">
-        Show More
-      </Link>
+      <div className="w-full flex justify-center">
+        <Link
+          to="/products/all"
+          className="bg-purple-500  rounded px-4 py-2  text-white"
+        >
+          Show More
+        </Link>
+      </div>
     </div>
   );
 };

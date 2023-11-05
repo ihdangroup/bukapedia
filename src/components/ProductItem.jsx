@@ -16,7 +16,7 @@ const ProductItem = ({ product }) => {
             <h3 className="text-base line-clamp-2 lg:text-lg  text-slate-700 line-clamp-3 mb-2">
               {product.title}
             </h3>
-            <span className="font-bold text-xs bg-blue-600 p-2 rounded text-white">
+            <span className="font-bold text-xs bg-purple-500 shadow p-2 rounded text-white">
               {product.rating.count} stocks left
             </span>
           </div>
@@ -39,13 +39,6 @@ const ProductItem = ({ product }) => {
             </svg>
           </div>
         </div>
-
-        {/* <div
-          onClick={() => addToCart(JSON.stringify(product))}
-          className="w-full bg-slate-800 text-white py-2 text-center rounded my-2 cursor-pointer"
-        >
-          Add To Cart
-        </div> */}
       </Link>
     </>
   );

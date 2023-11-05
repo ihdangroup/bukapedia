@@ -22,7 +22,7 @@ const CartPage = () => {
   console.log(cartss);
   return (
     <Layout>
-      <div className="p-3 m-4 text-sm lg:text-base rounded border p-2 shadow">
+      <div className="p-3 my-4 text-sm lg:text-base rounded border p-2 shadow">
         {cartss.length > 0 ? (
           <div>
             <table className="text-center w-full bg-white">

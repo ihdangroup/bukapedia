@@ -9,9 +9,9 @@ const Navbar = () => {
   const { carts } = useSelector((state) => state.productSlice);
   const cartss = carts?.length > 0 ? JSON.parse(carts) : carts;
   return (
-    <div className="w-full p-6 flex justify-between bg-slate-800 text-white">
+    <div className="w-full p-6  flex justify-between bg-white">
       <div>
-        <Link to="/" className="text-2xl">
+        <Link to="/" className="text-lg font-bold">
           Bukapedia
         </Link>
       </div>
@@ -29,7 +29,7 @@ const Navbar = () => {
           </button>
         </div>
       ) : (
-        <Link className="text-sm p-2 rounded border" to="/login">
+        <Link className="text-sm p-2 shadow rounded border" to="/login">
           Login
         </Link>
       )}

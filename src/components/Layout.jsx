@@ -1,11 +1,13 @@
 import React from "react";
+import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <div className="p-6">{children}</div>
+      <div className="px-6">{children}</div>
+      <Footer />
     </div>
   );
 };
